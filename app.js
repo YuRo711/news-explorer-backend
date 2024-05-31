@@ -7,6 +7,8 @@ const { errors } = require('celebrate');
 const router = require('./routes/index');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require("./middlewares/errorHandler");
+const limiter = require('./middlewares/limiter');
+const { DB_HOST } = require('./utils/config');
 
 
 const app = express();
@@ -16,7 +18,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-mongoose.connect('mongodb://127.0.0.1:27017/news_db');
+mongoose.connect(DB_HOST);
 
 app.get('/crash-test', () => {
     setTimeout(() => {
@@ -25,7 +27,8 @@ app.get('/crash-test', () => {
 });
 
 app.use(requestLogger);
-app.use('/', router);
+app.use(limiter);
+app.use('/api/', router);
 
 app.use(errorLogger);
 app.use(errors());
