@@ -6,10 +6,8 @@ module.exports = (err, req, res, next) => {
             code === NOT_FOUND_CODE || code === FORBIDDEN_CODE ||
             code === CONFLICT_CODE) {
         res.status(code).send({ message: err.message });
-        console.error(err);
     } else {
         res.status(SERVER_ERROR_CODE).send({ message: SERVER_ERROR_MESSAGE });
-        console.error(new Error(SERVER_ERROR_MESSAGE));
     }
 
     return next();
