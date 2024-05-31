@@ -4,6 +4,7 @@ const {
   OK_CODE,
   NOT_FOUND_MESSAGE,
   ID_CAST_MESSAGE,
+  CONFLICT_MESSAGE,
 } = require('../utils/errors')
 const BadRequestError = require('../utils/errors/bad-request-err');
 const NotFoundError = require('../utils/errors/not-found-err');
@@ -19,7 +20,7 @@ module.exports.createUser = (req, res, next) => {
       if (err.name === 'ValidationError') {
           next(new BadRequestError(err.message));
       } else if (err.code === 11000) {
-          next(new ConflictError('A user with this email already exists'));
+          next(new ConflictError(CONFLICT_MESSAGE));
       } else {
           next(err);
       }

@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require("express");
+const helmet = require("helmet");
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -28,6 +29,7 @@ app.get('/crash-test', () => {
 
 app.use(requestLogger);
 app.use(limiter);
+app.use(helmet());
 app.use('/api/', router);
 
 app.use(errorLogger);
