@@ -4,6 +4,6 @@ const auth = require('../middlewares/auth');
 
 router.get('/articles/', auth, getSavedArticles);
 router.post('/articles/', auth, saveNewArticle);
-router.delete('/articles/articleId', auth, deleteArticle);
+router.delete('/articles/:articleId', auth, deleteArticle);
 
 module.exports = router;

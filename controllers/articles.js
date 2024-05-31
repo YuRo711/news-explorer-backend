@@ -18,7 +18,9 @@ module.exports.getSavedArticles = (req, res, next) => {
 }
 
 module.exports.saveNewArticle = (req, res, next) => {
-  const { keyword, title, text, date, source, link, owner } = req.body;
+  const { keyword, title, text, date, source, link } = req.body;
+  const owner = req.user._id;
+
   Article.create({ keyword, title, text, date, source, link, owner })
     .then(() => res.status(OK_CODE)
       .send({ data: { keyword, title, text, date, source, link, owner } }))
@@ -34,7 +36,8 @@ module.exports.saveNewArticle = (req, res, next) => {
 
 module.exports.deleteArticle = (req, res, next) => {
   const { articleId } = req.params;
-  Item.findById(articleId)
+
+  Article.findById(articleId).select("+owner")
     .orFail(() => {
       const error = new Error();
       error.name = 'NotFound';
