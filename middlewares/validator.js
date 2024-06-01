@@ -55,20 +55,24 @@ module.exports.validateArticle= celebrate({
       "string.empty": 'The "keyword" field must be filled in',
     }),
     title: Joi.string().required().messages({
-      "string.empty": 'The "keyword" field must be filled in',
+      "string.empty": 'The "title" field must be filled in',
     }),
     text: Joi.string().required().messages({
-      "string.empty": 'The "keyword" field must be filled in',
+      "string.empty": 'The "text" field must be filled in',
     }),
     date: Joi.string().required().messages({
-      "string.empty": 'The "keyword" field must be filled in',
+      "string.empty": 'The "date" field must be filled in',
     }),
     source: Joi.string().required().messages({
-      "string.empty": 'The "keyword" field must be filled in',
+      "string.empty": 'The "source" field must be filled in',
     }),
     link: Joi.string().required().custom(validateURL).messages({
-      "string.empty": 'The "keyword" field must be filled in',
-      "string.uri": 'the "email" field must be a valid url',
+      "string.empty": 'The "link" field must be filled in',
+      "string.uri": 'the "link" field must be a valid url',
+    }),
+    image: Joi.string().required().custom(validateURL).messages({
+      "string.empty": 'The "image" field must be filled in',
+      "string.uri": 'the "image" field must be a valid url',
     }),
   }),
 });

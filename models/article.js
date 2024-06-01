@@ -25,6 +25,16 @@ const articleSchema = new Schema({
     type: String,
     required: true,
   },
+  image: {
+    type: String,
+    required: true,
+    validate: {
+      validator(value) {
+        return validator.isURL(value);
+      },
+      message: 'You must enter a valid URL',
+    },
+  },
   link: {
     type: String,
     required: true,

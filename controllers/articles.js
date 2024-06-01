@@ -19,12 +19,12 @@ module.exports.getSavedArticles = (req, res, next) => {
 }
 
 module.exports.saveNewArticle = (req, res, next) => {
-  const { keyword, title, text, date, source, link } = req.body;
+  const { keyword, title, text, date, source, link, image } = req.body;
   const owner = req.user._id;
 
-  Article.create({ keyword, title, text, date, source, link, owner })
+  Article.create({ keyword, title, text, date, source, link, image, owner })
     .then(() => res.status(OK_CODE)
-      .send({ data: { keyword, title, text, date, source, link, owner } }))
+      .send({ data: { keyword, title, text, date, source, link, image, owner } }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
           next(new BadRequestError(err.message));
